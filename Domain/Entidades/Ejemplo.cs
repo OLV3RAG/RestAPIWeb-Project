@@ -10,10 +10,11 @@ namespace Dominio.Entidades
 {
     public class Ejemplo
     {
-        public int Nombre { get; set; }
-        public List<Materias>  Materia { get; set; }
-        public List<Direcciones> Direccion { get; set; }
-        public string Emails { get; set; }
-        public int Telefono { get; set; }
+        public string Nombre { get; set; }
+        public string Salon { get; set; }
+        public List<Materias> Materia { get; set; }
+        public Direcciones Direccion { get; set; }
+        public List<string> Emails { get; set; }
+        public string Telefono { get; set; }
     }
 }

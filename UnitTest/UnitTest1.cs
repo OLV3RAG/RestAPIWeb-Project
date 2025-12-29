@@ -1,4 +1,5 @@
 using Domain;
+using Dominio.Entidades;
 using Infraestructura;
 using Infraestructura.AccesoBD;
 using Infraestructura.Entidades;
@@ -181,10 +182,35 @@ namespace UnitTest
             ejLoc.estado = estados;
 
 
+       
+
+            Ejemplo ejemplo = new Ejemplo();
+            ejemplo.Nombre = "Juan Perez";
+            ejemplo.Salon = "A1";
+            ejemplo.Materia = new List<Materias>
+            {
+                new Materias { ID = 1, Nombre = "Matemáticas" },
+                new Materias { ID = 2, Nombre = "Historia" }
+            };
+            ejemplo.Direccion = new Direcciones
+            {
+                Calle = "Calle Falsa 123",
+                Numero = 6,
+                ColoniaID = 1,
+                MunicipioID = 2,
+                EstadoID = 3
+            };
+            ejemplo.Emails = new List<string> { "balbalba46@yahoo.com", "lolololo@gmail.com"};
+            ejemplo.Telefono = "555-1234";
+            string jsonEjem = System.Text.Json.JsonSerializer.Serialize(ejemplo);
+            string jsonP = @"{'Nombre':'Juan Perez','Salon':'A1','Materia':[{'ID':1,'Nombre':'Matematicas'},{'ID':2,'Nombre':'Historia'}],'Direccion':{'ID':0,'ColoniaID':1,'MunicipioID':2,'EstadoID':3},'Emails':['balbalba46@yahoo.com','lolololo@gmail.com'],'Telefono':'555-1234'}";
+
+            var objEjem = System.Text.Json.JsonSerializer.Deserialize<Ejemplo>(jsonP);
+            string jsonLoca = System.Text.Json.JsonSerializer.Serialize(ejLoc);
+
+
             Assert.AreEqual(42985, codigoPostal[0].ID);
             Assert.IsNotNull(ejLoc.municipio);
-
-            string jsonLoca = System.Text.Json.JsonSerializer.Serialize(ejLoc);
         }
 
     }
