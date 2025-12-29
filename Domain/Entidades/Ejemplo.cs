@@ -11,7 +11,7 @@ namespace Dominio.Entidades
     {
         public int Nombre { get; set; }
         public string  Materia { get; set; }
-
+        public string Direccion { get; set; }
         public string Emails { get; set; }
         public int Telefono { get; set; }
     }
