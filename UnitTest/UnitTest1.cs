@@ -1,3 +1,4 @@
+using Domain;
 using Infraestructura;
 using Infraestructura.AccesoBD;
 using Infraestructura.Entidades;
@@ -158,7 +159,18 @@ namespace UnitTest
             Assert.IsNotEmpty(codigoPostal);
 
         }
-
+         
+        [Test]
+        public void ObtenerCPporColonia_Invalido()
+        {
+            int coloniaID = 42987;
+            Localidades localidadesDAO = new Localidades(_configuration);
+            EjemploLoc ejLoc = new EjemploLoc();
+            List<Colonias> codigoPostal = localidadesDAO.ObtenerCodigosPostalesPorColonia(coloniaID);
+            ejLoc.colonias = codigoPostal;
+            ejLoc.municipio = new Municipios();
+            Assert.IsEmpty(codigoPostal, "La lista de códigos postales debería estar vacía para un ID de colonia inválido.");
+        }
 
     }
 }
