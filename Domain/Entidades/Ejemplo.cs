@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Infraestructura.Entidades;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Principal;
@@ -10,8 +11,8 @@ namespace Dominio.Entidades
     public class Ejemplo
     {
         public int Nombre { get; set; }
-        public string  Materia { get; set; }
-        public string Direccion { get; set; }
+        public List<Materias>  Materia { get; set; }
+        public List<Direcciones> Direccion { get; set; }
         public string Emails { get; set; }
         public int Telefono { get; set; }
     }
