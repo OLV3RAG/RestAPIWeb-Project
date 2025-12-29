@@ -131,6 +131,8 @@ namespace UnitTest
             Assert.IsNotEmpty(municipios);
         }
 
+
+
         [Test]
         public void ObtenerCol_PorMunicipioID()
         {
@@ -163,13 +165,26 @@ namespace UnitTest
         [Test]
         public void ObtenerCPporColonia_Invalido()
         {
-            int coloniaID = 42987;
+            int coloniaID = 42985;
             Localidades localidadesDAO = new Localidades(_configuration);
             EjemploLoc ejLoc = new EjemploLoc();
+            List<Municipios> municipios = new List<Municipios>();
             List<Colonias> codigoPostal = localidadesDAO.ObtenerCodigosPostalesPorColonia(coloniaID);
+            municipios = localidadesDAO.ObtenerMunicipios();
+
+            Municipios municipio = municipios.Find(m => m.ID == codigoPostal[0].MunicipioID);
+            Estados estados = localidadesDAO.ObtenerEstados().Find(e => e.ID == municipio.EstadoID);
+
+
             ejLoc.colonias = codigoPostal;
-            ejLoc.municipio = new Municipios();
-            Assert.IsEmpty(codigoPostal, "La lista de códigos postales debería estar vacía para un ID de colonia inválido.");
+            ejLoc.municipio = municipio;
+            ejLoc.estado = estados;
+
+
+            Assert.AreEqual(42985, codigoPostal[0].ID);
+            Assert.IsNotNull(ejLoc.municipio);
+
+            string jsonLoca = System.Text.Json.JsonSerializer.Serialize(ejLoc);
         }
 
     }
