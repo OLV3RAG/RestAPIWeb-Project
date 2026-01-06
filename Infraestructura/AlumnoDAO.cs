@@ -21,19 +21,29 @@ namespace Infraestructura
             _connectionString = configuration.GetConnectionString("DefaultConnection");
         }
 
-        public List<Personas> ObtenerAlumnos()
+        public List<Personas> InsertarAlumnos()
         {
             SqlConnection conn = new SqlConnection(_connectionString);
             List<Personas> alumnos = new List<Personas>();
+
             try
             {
                 using (conn)
                 {
                     conn.Open();
+                    Personas per = new Personas();
                     SqlCommand cmd = new SqlCommand();
                     cmd.Connection = conn;
-                    cmd.CommandText = "sp_ObtenerPersona";
+                    cmd.CommandText = "sp_InsertarPersona";
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@Nombre", per.Nombre);
+                    cmd.Parameters.AddWithValue("@ApellidoPaterno", per.ApellidoPaterno);
+                    cmd.Parameters.AddWithValue("@ApellidoMaterno",per.ApellidoMaterno);
+                    cmd.Parameters.AddWithValue("@FechaNacimiento", per.FechaNacimiento);
+                    cmd.Parameters.AddWithValue("@CURP", per.CURP);
+                    cmd.Parameters.AddWithValue("@DireccionID", per.DireccionID);
+                    cmd.Parameters.AddWithValue("@TipoPersonaID", per.TipoPersonaID);
+                    cmd.Parameters.AddWithValue("@GeneroID", per.GeneroID);
                     SqlDataReader reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
@@ -53,8 +63,7 @@ namespace Infraestructura
             }
             catch (Exception ex)
             {
-                throw new Exception("Error al obtener los alumnos: " + ex.Message);
-
+                throw new Exception("Error al insertar los alumnos: " + ex.Message);
             }
             return alumnos;
         }

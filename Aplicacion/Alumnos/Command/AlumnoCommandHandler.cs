@@ -21,7 +21,7 @@ namespace Aplicacion.Alumnos.Queries
         {
             List<Personas> alumnos = new List<Personas>();
             AlumnoDAO alumnoDAO = new AlumnoDAO(_configuration);
-            alumnos = alumnoDAO.ObtenerAlumnos();
+            alumnos = alumnoDAO.InsertarAlumnos();
             List<AlumnoCommand> alumnoQueries = new List<AlumnoCommand>();
             foreach (var alumno in alumnos)
             {
