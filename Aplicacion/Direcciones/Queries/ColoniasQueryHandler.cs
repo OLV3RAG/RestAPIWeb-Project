@@ -16,11 +16,11 @@ namespace Aplicacion.Direcciones.Queries
             _configuration = configuration;
         }
 
-        public List<ColoniasQuery> Handle()
+        public List<ColoniasQuery> Handle(int municipioID)
         {
             List<Infraestructura.Entidades.Colonias> colonias = new List<Infraestructura.Entidades.Colonias>();
             Infraestructura.Localidades loc = new Infraestructura.Localidades(_configuration);
-            colonias = loc.ObtenerColonias();
+            colonias = loc.ObtenerColoniasPorMunicipio(municipioID);
             List<ColoniasQuery> coloniaQueries = new List<ColoniasQuery>();
             foreach (var colonia in colonias)
             {
