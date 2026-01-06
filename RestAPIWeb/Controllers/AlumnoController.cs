@@ -28,10 +28,9 @@ namespace RestAPI.Controllers
         [HttpPost ("Alumno/Crear")]
         public IActionResult Crear([FromBody] AlumnoCommand command)
         {
-            List<AlumnoCommand> alumnos = new List<AlumnoCommand>();
             AlumnoCommandHandler alcommhan = new AlumnoCommandHandler(configuration);
-            alumnos = alcommhan.Handle();
-            return Ok(alumnos);
+            alcommhan.Handle(command);
+            return 
         }
         
            

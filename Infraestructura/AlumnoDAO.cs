@@ -21,7 +21,7 @@ namespace Infraestructura
             _connectionString = configuration.GetConnectionString("DefaultConnection");
         }
 
-        public List<Personas> InsertarAlumnos()
+        public Personas InsertarAlumnos(Personas per)
         {
             SqlConnection conn = new SqlConnection(_connectionString);
             List<Personas> alumnos = new List<Personas>();
@@ -44,28 +44,14 @@ namespace Infraestructura
                     cmd.Parameters.AddWithValue("@DireccionID", per.DireccionID);
                     cmd.Parameters.AddWithValue("@TipoPersonaID", per.TipoPersonaID);
                     cmd.Parameters.AddWithValue("@GeneroID", per.GeneroID);
-                    SqlDataReader reader = cmd.ExecuteReader();
-                    while (reader.Read())
-                    {
-                        Personas alumno = new Personas();
-                        alumno.ID = reader.GetInt32(0);
-                        alumno.Nombre = reader.GetString(1);
-                        alumno.ApellidoPaterno = reader.GetString(2);
-                        alumno.ApellidoMaterno = reader.GetString(3);
-                        alumno.FechaNacimiento = reader.GetDateTime(4);
-                        alumno.CURP = reader.GetString(5);
-                        alumno.DireccionID = reader.GetInt32(6);
-                        alumno.TipoPersonaID = reader.GetInt32(7);
-                        alumno.GeneroID = reader.GetInt32(8);
-                        alumnos.Add(alumno);
-                    }
+                    cmd.ExecuteNonQuery();
                 }
             }
             catch (Exception ex)
             {
                 throw new Exception("Error al insertar los alumnos: " + ex.Message);
             }
-            return alumnos;
+            return per;
         }
     }
 }

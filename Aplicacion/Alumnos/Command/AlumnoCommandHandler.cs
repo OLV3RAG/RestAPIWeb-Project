@@ -17,28 +17,23 @@ namespace Aplicacion.Alumnos.Queries
         {
             _configuration = configuration;
         }
-        public List<AlumnoCommand> Handle()
+        public AlumnoCommand Handle(AlumnoCommand command)
         {
             List<Personas> alumnos = new List<Personas>();
             AlumnoDAO alumnoDAO = new AlumnoDAO(_configuration);
-            alumnos = alumnoDAO.InsertarAlumnos();
-            List<AlumnoCommand> alumnoQueries = new List<AlumnoCommand>();
-            foreach (var alumno in alumnos)
+            Personas = Personas per = new Personas
             {
-                alumnoQueries.Add(new AlumnoCommand
-                {
-                    ID = alumno.ID,
-                    Nombre = alumno.Nombre,
-                    ApellidoPaterno = alumno.ApellidoPaterno,
-                    ApellidoMaterno = alumno.ApellidoMaterno,
-                    FechaNacimiento = alumno.FechaNacimiento,
-                    CURP = alumno.CURP,
-                    DireccionID = alumno.DireccionID,
-                    TipoPersonaID = alumno.TipoPersonaID,
-                    GeneroID = alumno.GeneroID
-                });
-            }
-            return alumnoQueries;
+                Nombre = command.Nombre,
+                ApellidoPaterno = command.ApellidoPaterno,
+                ApellidoMaterno = command.ApellidoMaterno,
+                FechaNacimiento = command.FechaNacimiento,
+                CURP = command.CURP,
+                DireccionID = command.DireccionID,
+                TipoPersonaID = command.TipoPersonaID,
+                GeneroID = command.GeneroID
+            };
+            alumnos = alumnoDAO.InsertarAlumnos();
+            return command;
         }
     }
 }
