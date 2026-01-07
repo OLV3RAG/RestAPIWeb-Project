@@ -42,13 +42,25 @@ namespace Infraestructura
                     cmd.Parameters.AddWithValue("@CURP", per.CURP);
                     cmd.Parameters.AddWithValue("@TipoPersonaID", per.TipoPersonaID);
                     cmd.Parameters.AddWithValue("@GeneroID", per.GeneroID);
+
+                    SqlParameter 
+                        outputIdParam = new SqlParameter("@NuevoID", System.Data.SqlDbType.Int)
+                    {
+                        Direction = System.Data.ParameterDirection.Output
+                    };
+                    cmd.Parameters.Add(outputIdParam);
                     cmd.ExecuteNonQuery();
+                    if (outputIdParam.Value != DBNull.Value)
+                    {
+                        per.ID = Convert.ToInt32(outputIdParam.Value);
+                    }
                 }
             }
             catch (Exception ex)
             {
-                throw new Exception("Error al insertar los alumnos: " + ex.Message);
+                return per;
             }
+
             return per;
         }
     }

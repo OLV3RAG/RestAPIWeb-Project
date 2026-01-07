@@ -1,4 +1,5 @@
 ﻿using Aplicacion.Alumnos.Queries;
+using Infraestructura.Entidades;
 using Microsoft.AspNetCore.Mvc;
 using RestAPIWeb.Controllers;
 
@@ -28,9 +29,15 @@ namespace RestAPI.Controllers
         [HttpPost ("Alumno/Crear")]
         public IActionResult Crear([FromBody] AlumnoCommand command)
         {
+            Personas per = new Personas();
             AlumnoCommandHandler alcommhan = new AlumnoCommandHandler(configuration);
-            alcommhan.Handle(command);
-            return Created("https://localhost:7004/1", new {id = 1, name = "Recurso"});
+           per = alcommhan.Handle(command);
+            if (per.ID == 0)
+            {
+                return BadRequest("Error al insertar el alumno");
+            }
+            return Created("https://localhost:7004/1", new {id = 1, name = "Registro Exitoso!"});
+
 
         }
         

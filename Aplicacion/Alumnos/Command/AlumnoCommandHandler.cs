@@ -17,7 +17,7 @@ namespace Aplicacion.Alumnos.Queries
         {
             _configuration = configuration;
         }
-        public AlumnoCommand Handle(AlumnoCommand command)
+        public Personas Handle(AlumnoCommand command)
         {
             List<Personas> alumnos = new List<Personas>();
             AlumnoDAO alumnoDAO = new AlumnoDAO(_configuration);
@@ -33,7 +33,7 @@ namespace Aplicacion.Alumnos.Queries
             };
             Personas per2 = new Personas();
             per2 =alumnoDAO.InsertarAlumnos(per);
-            return command;
+            return per2;
         }
     }
 }
