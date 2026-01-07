@@ -13,7 +13,6 @@ namespace Aplicacion.Alumnos.Queries
         public string ApellidoMaterno { get; set; }
         public DateTime FechaNacimiento { get; set; }
         public string CURP { get; set; }
-        public int DireccionID { get; set; }
         public int TipoPersonaID { get; set; }
         public int GeneroID { get; set; }
     }

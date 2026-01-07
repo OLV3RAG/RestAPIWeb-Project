@@ -30,7 +30,8 @@ namespace RestAPI.Controllers
         {
             AlumnoCommandHandler alcommhan = new AlumnoCommandHandler(configuration);
             alcommhan.Handle(command);
-            return 
+            return Created("https://localhost:7004/1", new {id = 1, name = "Recurso"});
+
         }
         
            

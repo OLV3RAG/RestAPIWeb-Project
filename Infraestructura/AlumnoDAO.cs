@@ -31,17 +31,15 @@ namespace Infraestructura
                 using (conn)
                 {
                     conn.Open();
-                    Personas per = new Personas();
                     SqlCommand cmd = new SqlCommand();
                     cmd.Connection = conn;
-                    cmd.CommandText = "sp_InsertarPersona";
+                    cmd.CommandText = "sp_InsertarPersonas";
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@Nombre", per.Nombre);
                     cmd.Parameters.AddWithValue("@ApellidoPaterno", per.ApellidoPaterno);
                     cmd.Parameters.AddWithValue("@ApellidoMaterno",per.ApellidoMaterno);
                     cmd.Parameters.AddWithValue("@FechaNacimiento", per.FechaNacimiento);
                     cmd.Parameters.AddWithValue("@CURP", per.CURP);
-                    cmd.Parameters.AddWithValue("@DireccionID", per.DireccionID);
                     cmd.Parameters.AddWithValue("@TipoPersonaID", per.TipoPersonaID);
                     cmd.Parameters.AddWithValue("@GeneroID", per.GeneroID);
                     cmd.ExecuteNonQuery();

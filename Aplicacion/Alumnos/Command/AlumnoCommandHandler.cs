@@ -21,18 +21,18 @@ namespace Aplicacion.Alumnos.Queries
         {
             List<Personas> alumnos = new List<Personas>();
             AlumnoDAO alumnoDAO = new AlumnoDAO(_configuration);
-            Personas = Personas per = new Personas
+            Personas per = new Personas
             {
                 Nombre = command.Nombre,
                 ApellidoPaterno = command.ApellidoPaterno,
                 ApellidoMaterno = command.ApellidoMaterno,
                 FechaNacimiento = command.FechaNacimiento,
                 CURP = command.CURP,
-                DireccionID = command.DireccionID,
                 TipoPersonaID = command.TipoPersonaID,
                 GeneroID = command.GeneroID
             };
-            alumnos = alumnoDAO.InsertarAlumnos();
+            Personas per2 = new Personas();
+            per2 =alumnoDAO.InsertarAlumnos(per);
             return command;
         }
     }
